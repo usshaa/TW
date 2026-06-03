@@ -187,18 +187,18 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Message sent successfully! Our technical consulting wing will reach out shortly.');">
+                    <form action="#" method="POST" onsubmit="return sendEmail(this);">
                         <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
+                            <input type="text" placeholder="Your Name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Your Email Address" required>
+                            <input type="email" placeholder="Your Email Address" name="email" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="Subject / Technical Requirement">
+                            <input type="text" placeholder="Subject / Technical Requirement" name="subject">
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Tell us about your infrastructure or application goals..." rows="5" required></textarea>
+                            <textarea placeholder="Tell us about your infrastructure or application goals..." name="message" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn-submit">Submit Request <i class="fa-solid fa-paper-plane"></i></button>
                     </form>
@@ -213,5 +213,18 @@
         </div>
     </footer>
 
+    <script>
+        function sendEmail(form) {
+            var name = encodeURIComponent(form.name.value.trim());
+            var email = encodeURIComponent(form.email.value.trim());
+            var subject = encodeURIComponent(form.subject.value.trim() || 'New contact request');
+            var message = encodeURIComponent(form.message.value.trim());
+            var body = 'Name: ' + name + '\r\n' +
+                       'Email: ' + email + '\r\n\r\n' +
+                       'Message:\r\n' + message;
+            window.location.href = 'mailto:deepak@teqwinitsolution.com?subject=' + subject + '&body=' + body;
+            return false;
+        }
+    </script>
 </body>
 </html>
